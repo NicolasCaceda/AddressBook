@@ -4,12 +4,16 @@ package AddressBook;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonTest {
 
-    Person TestPersonFullInfo;
+    private Person TestPersonFullInfo;
+    private Person EmptyPerson;
+    private Exception illegalArgumentException = new IllegalArgumentException();
 
     @BeforeEach
     void setUp() {
@@ -22,13 +26,25 @@ class PersonTest {
     }
 
     @Test
-    public void getFirstName() {
+    public void getFirstName_nameExists_returnsF() {
         assertEquals("F", TestPersonFullInfo.getFirstName());
     }
 
     @Test
-    public void getLastName() {
+    public void Person_firstNameDNE_throwsException() {
+        assertThrows(IllegalArgumentException.class, () -> new Person("", "L", "A", "C", "S",
+                "Z", "P"));
+    }
+
+    @Test
+    public void getLastName_nameExists_returnsL() {
         assertEquals("L", TestPersonFullInfo.getLastName());
+    }
+
+    @Test
+    public void Person_lastNameDNE_throwsException() {
+        assertThrows(IllegalArgumentException.class, () -> new Person("F", "", "A", "C", "S",
+                "Z", "P"));
     }
 
     @Test
@@ -74,14 +90,25 @@ class PersonTest {
 
     }
 
-    @Test
-    public void getField() {
-        assertEquals("L", TestPersonFullInfo.getField(0));
-        assertEquals("F", TestPersonFullInfo.getField(1));
-        assertEquals("A", TestPersonFullInfo.getField(2));
-        assertEquals("C", TestPersonFullInfo.getField(3));
-        assertEquals("S", TestPersonFullInfo.getField(4));
-        assertEquals("Z", TestPersonFullInfo.getField(5));
-        assertEquals("P", TestPersonFullInfo.getField(6));
+    @ParameterizedTest
+    @ValueSource(ints={0,1,2,3,4,5,6,7})
+    public void getField_(int field) {
+        if (field == 0)
+            assertEquals("L", TestPersonFullInfo.getField(field));
+        if (field == 1)
+            assertEquals("F", TestPersonFullInfo.getField(field));
+        if (field == 2)
+            assertEquals("A", TestPersonFullInfo.getField(field));
+        if (field == 3)
+            assertEquals("C", TestPersonFullInfo.getField(field));
+        if (field == 4)
+            assertEquals("S", TestPersonFullInfo.getField(field));
+        if (field == 5)
+            assertEquals("Z", TestPersonFullInfo.getField(field));
+        if (field == 6)
+            assertEquals("P", TestPersonFullInfo.getField(field));
+        if (field == 7)
+            assertThrows(IllegalArgumentException.class, () -> TestPersonFullInfo.getField(field));
+
     }
 }
