@@ -8,11 +8,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AddressBookTest {
 
-    AddressBook book;
+    private AddressBook book;
+    private Person fullPerson;
+    private Person EmptyPerson;
+    private Person[] personArray;
 
     @BeforeEach
     void setUp() {
         book = new AddressBook();
+        fullPerson = new Person("F", "L", "A", "C", "S",
+            "Z", "P");
     }
 
     @AfterEach
@@ -26,16 +31,50 @@ class AddressBookTest {
     }
 
     @Test
-    void add() {
+    void getPersons_twoPersons_Array() {
+        book.add(fullPerson);
+        book.add(fullPerson);
+        Person[] array = {fullPerson, fullPerson};
+        assertArrayEquals(array , book.getPersons());
+    }
 
+
+    @Test
+    void add_emptyPerson_doesNotThrowsException() {
+        assertDoesNotThrow(() -> book.add(EmptyPerson));
     }
 
     @Test
-    void set() {
+    void add_fullPerson_throwsException() {
+        assertDoesNotThrow(() -> book.add(fullPerson));
     }
 
     @Test
-    void remove() {
+    void set_indexOutOfBoundsPersonArray_throwsException() {
+        assertThrows(IndexOutOfBoundsException.class,() -> book.set(2,EmptyPerson));
+    }
+
+    @Test
+    void set_indexExistsReplaceWithEmpty_throwsException() {
+        book.add(fullPerson);
+        assertDoesNotThrow(() -> book.set(0,EmptyPerson));
+    }
+
+    @Test
+    void set_setPerson_throwsException() {
+        book.add(EmptyPerson);
+        assertDoesNotThrow(() -> book.set(0,fullPerson));
+    }
+
+    @Test
+    void remove_indexDoesNotExist_throwsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> book.remove(41));
+    }
+
+    @Test
+    void remove_indexExists_throwsException() {
+        book.add(fullPerson);
+        assertDoesNotThrow(() -> book.remove(0));
     }
 
     @Test
