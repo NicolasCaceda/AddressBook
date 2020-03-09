@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AddressBookTest {
 
     private AddressBook book;
+    private AddressBook brokenBook;
     private Person fullPerson;
     private Person EmptyPerson;
     private Person[] personArray;
@@ -31,7 +32,7 @@ class AddressBookTest {
     }
 
     @Test
-    void getPersons_twoPersons_Array() {
+    void getPersons_twoPersons_returnsArray() {
         book.add(fullPerson);
         book.add(fullPerson);
         Person[] array = {fullPerson, fullPerson};
@@ -78,26 +79,122 @@ class AddressBookTest {
     }
 
     @Test
-    void get() {
+    void get_indexDoesNotExist_throwsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> book.get(41));
     }
 
     @Test
-    void clear() {
+    void get_getAPerson_returnsPerson() {
+        book.add(fullPerson);
+        assertEquals(fullPerson, book.get(0));
     }
 
     @Test
-    void getRowCount() {
+    void clear_bookPersonEmpty_throwsNothing() {
+        assertDoesNotThrow(() -> book.clear());
     }
 
     @Test
-    void getColumnCount() {
+    void clear_bookNotInit_throwsException() {
+        assertThrows(NullPointerException.class, () -> brokenBook.clear());
     }
 
     @Test
-    void getValueAt() {
+    void clear_bookPersonCleared_throwsNothing() {
+        book.clear();
+        assertDoesNotThrow(() -> book.clear());
     }
 
     @Test
-    void getColumnName() {
+    void clear_bookPersonZero_throwsNothing() {
+        book.add(fullPerson);
+        book.remove(0);
+        assertDoesNotThrow(() -> book.clear());
+    }
+
+    @Test
+    void clear_bookNotEmpty_throwsNothing() {
+        book.add(fullPerson);
+        book.add(fullPerson);
+        book.add(fullPerson);
+        assertDoesNotThrow(() -> book.clear());
+    }
+
+
+    @Test
+    void getRowCount_notInit_throwsException() {
+        assertThrows(NullPointerException.class, () -> brokenBook.getRowCount());
+    }
+
+    @Test
+    void getRowCount_nothingAdded_returnsZero() {
+        assertEquals(0, book.getRowCount());
+    }
+
+    @Test
+    void getRowCount_oneItemAdded_returnsOne() {
+        book.add(fullPerson);
+        assertEquals(1, book.getRowCount());
+    }
+
+    @Test
+    void getColumnCount_notInit_throwsException() {
+        assertThrows(NullPointerException.class, () -> brokenBook.getColumnCount());
+    }
+
+    @Test
+    void getColumnCount_nothingAdded_returnsNull() {
+        assertEquals(7, book.getColumnCount());
+    }
+
+    @Test
+    void getColumnCount_oneItemAdded_returnsOne() {
+        book.add(fullPerson);
+        assertEquals(7, book.getColumnCount());
+    }
+
+
+    @Test
+    void getValueAt_validValid_returnsValidObject() {
+        book.add(fullPerson);
+        assertEquals("P",book.getValueAt(0,6));
+    }
+
+    @Test
+    void getValueAt_validNotValid_throwsException() {
+        book.add(fullPerson);
+        assertThrows(IllegalArgumentException.class,() -> book.getValueAt(0,9));
+    }
+
+    @Test
+    void getValueAt_notValidValid_throwsException() {
+        book.add(fullPerson);
+        assertThrows(IndexOutOfBoundsException.class,() -> book.getValueAt(1,6));
+    }
+
+    @Test
+    void getValueAt_notValidNotValid_throwsException() {
+        book.add(fullPerson);
+        assertThrows(IndexOutOfBoundsException.class,() -> book.getValueAt(1,9));
+    }
+
+    @Test
+    void getValueAt_notInit_throwsException() {
+        assertThrows(NullPointerException.class,() -> brokenBook.getValueAt(0,0));
+    }
+
+    @Test
+    void getColumnName_validCol_returnString() {
+        assertEquals("Phone", book.getColumnName(6));
+    }
+
+    @Test
+    void getColumnName_invalidCol_throwsException() {
+        assertThrows(IndexOutOfBoundsException.class,() -> book.getColumnName(9));
+    }
+
+    @Test
+    void getColumnName_notInit_throwsException() {
+        assertThrows(NullPointerException.class,() -> brokenBook.getColumnName(6));
     }
 }
