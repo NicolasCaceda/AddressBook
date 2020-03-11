@@ -14,6 +14,7 @@ class AddressBookTest {
     private Person EmptyPerson;
     private Person[] personArray;
 
+    //Before each test make a new addressbook and person
     @BeforeEach
     void setUp() {
         book = new AddressBook();
@@ -21,16 +22,21 @@ class AddressBookTest {
             "Z", "P");
     }
 
+    //After each test run this empty method
     @AfterEach
     void tearDown() {
     }
 
+    //tests that if no person has been added to the address book
+    //the result will be an empty array.
     @Test
     void getPersons_noPersons_emptyArray() {
         Person[] array={};
         assertArrayEquals(array , book.getPersons());
     }
 
+    //Adds two people to the address book then requests all the people
+    //returns an array of 2 persons
     @Test
     void getPersons_twoPersons_returnsArray() {
         book.add(fullPerson);
@@ -39,28 +45,40 @@ class AddressBookTest {
         assertArrayEquals(array , book.getPersons());
     }
 
-
+    //Tests what happens when you add an empty person
+    //Nothing happens. Not even an exception.
     @Test
     void add_emptyPerson_doesNotThrowsException() {
         assertDoesNotThrow(() -> book.add(EmptyPerson));
     }
 
+    //Adds a full person to the addressbook.
+    //should not fail
     @Test
     void add_fullPerson_throwsException() {
         assertDoesNotThrow(() -> book.add(fullPerson));
     }
 
+    //tests what happens when you try to set an index that does not exist
+    //with a person that has not been initialized.
+    //throws an exception.
     @Test
     void set_indexOutOfBoundsPersonArray_throwsException() {
         assertThrows(IndexOutOfBoundsException.class,() -> book.set(2,EmptyPerson));
     }
 
+    //tests what happens when you try to set an index that does exist
+    //with a person that has not been initialized.
+    //Nothing breaks
     @Test
     void set_indexExistsReplaceWithEmpty_throwsException() {
         book.add(fullPerson);
         assertDoesNotThrow(() -> book.set(0,EmptyPerson));
     }
 
+    //tests what happens when you try to set an index that exists
+    //with a person that exists.
+    //Nothing breaks.
     @Test
     void set_setPerson_throwsException() {
         book.add(EmptyPerson);
