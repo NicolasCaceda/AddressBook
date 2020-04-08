@@ -85,22 +85,30 @@ class AddressBookTest {
         assertDoesNotThrow(() -> book.set(0,fullPerson));
     }
 
+    //tests what happens when you try to remove from an index that does not exist
+    //throws an exception.
     @Test
     void remove_indexDoesNotExist_throwsException() {
         assertThrows(IndexOutOfBoundsException.class, () -> book.remove(41));
     }
 
+    //tests what happens when you try to remove from an index that does exist
+    //Nothing breaks.
     @Test
     void remove_indexExists_throwsException() {
         book.add(fullPerson);
         assertDoesNotThrow(() -> book.remove(0));
     }
 
+    //tests what happens when you try to get from an index that does not exist
+    //throws an exception.
     @Test
     void get_indexDoesNotExist_throwsException() {
         assertThrows(IndexOutOfBoundsException.class, () -> book.get(41));
     }
 
+    //tests what happens when you try to get from an index that does exist
+    //Nothing breaks.
     @Test
     void get_getAPerson_returnsPerson() {
         book.add(fullPerson);
