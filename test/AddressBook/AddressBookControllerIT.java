@@ -105,7 +105,7 @@ public class AddressBookControllerIT {
     }
 
     @Test
-    public void testGetModelMethod() {
+    public void addressbookcontroller_GetModel_test() {
         AddressBook addressBook;
         addressBook = testController.getModel();
         assertEquals(testController, addressBook);
