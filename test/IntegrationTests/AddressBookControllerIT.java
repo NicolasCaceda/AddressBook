@@ -1,4 +1,4 @@
-package AddressBook;
+package IntegrationTests;
 
 import AddressBook.AddressBook;
 import AddressBook.AddressBookController;
