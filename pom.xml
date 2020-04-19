@@ -88,6 +88,9 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco.version}</version>
+        <configuration>
+          <excludes>GUI/SpringUtilities.*</excludes>
+        </configuration>
         <executions>
           <execution>
             <id>prepare-agent</id>
@@ -179,11 +182,8 @@
             </configuration>
           </execution>
         </executions>
-
-        <configuration>
-          <excludes></excludes>
-        </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
