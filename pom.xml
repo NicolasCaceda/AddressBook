@@ -89,7 +89,10 @@
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco.version}</version>
         <configuration>
-          <excludes>GUI/SpringUtilities.*</excludes>
+          <excludes>
+            <exclude>GUI/SpringUtilities.*</exclude>
+            <exclude>GUI/AddressBookGUI.*</exclude>
+          </excludes>
         </configuration>
         <executions>
           <execution>
