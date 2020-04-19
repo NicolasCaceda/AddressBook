@@ -58,6 +58,11 @@
   </dependencies>
 
   <build>
+    <testSourceDirectory>
+      test
+    </testSourceDirectory>
+
+
     <plugins>
 
       <plugin>
@@ -89,6 +94,8 @@
             <goals>
               <goal>prepare-agent</goal>
             </goals>
+            <configuration>
+            </configuration>
           </execution>
           <execution>
             <id>report</id>
@@ -96,6 +103,8 @@
             <goals>
               <goal>report</goal>
             </goals>
+            <configuration>
+            </configuration>
           </execution>
           <execution>
             <id>before-unit-test-execution</id>
@@ -172,7 +181,7 @@
         </executions>
 
         <configuration>
-
+          <excludes></excludes>
         </configuration>
       </plugin>
       <plugin>
