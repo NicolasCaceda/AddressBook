@@ -37,7 +37,6 @@ import java.awt.*;
 
 // This code is exempt from testing requirements, because it is purely GUI related.
 
-
 public class SpringUtilities {
    
     public static void printSizes(Component c) {

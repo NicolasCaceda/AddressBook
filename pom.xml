@@ -172,6 +172,7 @@
         </executions>
 
         <configuration>
+
         </configuration>
       </plugin>
       <plugin>
