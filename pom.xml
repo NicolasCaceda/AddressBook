@@ -74,6 +74,7 @@
         <version>${surefire.version}</version>
         <configuration>
           <skipTests>false</skipTests>
+          <argLine>${surefire.jacoco.args}</argLine>
         </configuration>
       </plugin>
 
