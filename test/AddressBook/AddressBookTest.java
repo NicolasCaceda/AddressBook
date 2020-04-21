@@ -19,7 +19,7 @@ class AddressBookTest {
     void setUp() {
         book = new AddressBook();
         fullPerson = new Person("F", "L", "A", "C", "S",
-            "Z", "P");
+            "1", "2");
     }
 
     //After each test run this empty method
@@ -115,22 +115,29 @@ class AddressBookTest {
         assertEquals(fullPerson, book.get(0));
     }
 
+    //tests what happens when you try to clear and empty book
+    //Should'nt break
     @Test
     void clear_bookPersonEmpty_throwsNothing() {
         assertDoesNotThrow(() -> book.clear());
     }
 
+    //If the book isn't initialized and you try to clear the book it should break.
     @Test
     void clear_bookNotInit_throwsException() {
         assertThrows(NullPointerException.class, () -> brokenBook.clear());
     }
 
+    //If the book is cleared prior and then cleared again, nothing breaks.
     @Test
     void clear_bookPersonCleared_throwsNothing() {
         book.clear();
         assertDoesNotThrow(() -> book.clear());
     }
 
+    //if you add something
+    //then remove it
+    //then clear it shouldn't break.
     @Test
     void clear_bookPersonZero_throwsNothing() {
         book.add(fullPerson);
@@ -138,6 +145,8 @@ class AddressBookTest {
         assertDoesNotThrow(() -> book.clear());
     }
 
+    //Clearing as normal shouldn't break this.
+    //Normal being adding people then clearing to restart
     @Test
     void clear_bookNotEmpty_throwsNothing() {
         book.add(fullPerson);
@@ -146,79 +155,101 @@ class AddressBookTest {
         assertDoesNotThrow(() -> book.clear());
     }
 
-
+    //not initialized
+    //try to get row count
+    //it breaks.
     @Test
     void getRowCount_notInit_throwsException() {
         assertThrows(NullPointerException.class, () -> brokenBook.getRowCount());
     }
 
+    //if you add nothing to a book and get the row count you're still at the start
     @Test
     void getRowCount_nothingAdded_returnsZero() {
         assertEquals(0, book.getRowCount());
     }
 
+    //add a person and then get row count
+    //works as intended
     @Test
     void getRowCount_oneItemAdded_returnsOne() {
         book.add(fullPerson);
         assertEquals(1, book.getRowCount());
     }
 
+    //if you get a col count on an uninitialized book. it will break.
     @Test
     void getColumnCount_notInit_throwsException() {
         assertThrows(NullPointerException.class, () -> brokenBook.getColumnCount());
     }
 
+    //there should be 7 column if not uh oh...
     @Test
     void getColumnCount_nothingAdded_returnsNull() {
         assertEquals(7, book.getColumnCount());
     }
 
+    //add a person
+    //see if that effected the column count
+    //it really shouldnt have
     @Test
     void getColumnCount_oneItemAdded_returnsOne() {
         book.add(fullPerson);
         assertEquals(7, book.getColumnCount());
     }
 
-
+    //add a person and get a value from the book at column row.
     @Test
     void getValueAt_validValid_returnsValidObject() {
         book.add(fullPerson);
-        assertEquals("P",book.getValueAt(0,6));
+        assertEquals("2",book.getValueAt(0,6));
     }
 
+    //add a person and fail to target them.
     @Test
     void getValueAt_validNotValid_throwsException() {
         book.add(fullPerson);
         assertThrows(IllegalArgumentException.class,() -> book.getValueAt(0,9));
     }
 
+    //add a person and fail to target them again
     @Test
     void getValueAt_notValidValid_throwsException() {
         book.add(fullPerson);
         assertThrows(IndexOutOfBoundsException.class,() -> book.getValueAt(1,6));
     }
 
+    //add a person and fail to target them again
     @Test
     void getValueAt_notValidNotValid_throwsException() {
         book.add(fullPerson);
         assertThrows(IndexOutOfBoundsException.class,() -> book.getValueAt(1,9));
     }
 
+    //there is no person and you failed to get a nonexistent person.
     @Test
     void getValueAt_notInit_throwsException() {
         assertThrows(NullPointerException.class,() -> brokenBook.getValueAt(0,0));
     }
 
+    //get the column name
+    //works as expected
     @Test
     void getColumnName_validCol_returnString() {
         assertEquals("Phone", book.getColumnName(6));
     }
 
+    //get the column name
+    //it doesnt exist
+    //throw exception
     @Test
     void getColumnName_invalidCol_throwsException() {
         assertThrows(IndexOutOfBoundsException.class,() -> book.getColumnName(9));
     }
 
+    //get column name
+    //it doesnt exist because not initialized
+    //it breaks.
     @Test
     void getColumnName_notInit_throwsException() {
         assertThrows(NullPointerException.class,() -> brokenBook.getColumnName(6));

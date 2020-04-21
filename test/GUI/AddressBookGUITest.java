@@ -12,6 +12,8 @@ class AddressBookGUITest {
     AddressBookController testAddresBookController;
     AddressBookGUI testGui;
 
+    //test isnt really used as the class is excluded
+    //if it builds it doesnt break
     @Test
     void objectBuildsCorrectly_NotNull() {
         testAddressBook = new AddressBook();

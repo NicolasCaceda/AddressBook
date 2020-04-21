@@ -26,6 +26,7 @@ public class AddressBookControllerIT {
     Person person1;
     Person person2;
 
+    //set up a few mocks and stubs
     @BeforeEach
     void setUp() throws SQLException {
         addressBook0 = mock(AddressBook.class);
@@ -52,12 +53,14 @@ public class AddressBookControllerIT {
 
     }
 
+    //do an add to the book test.
     @Test
     public void addressbookcontroller_add_test(){
         assertDoesNotThrow(() -> testController.add(person0));
         verify(addressBook0).add(person0);
     }
 
+    //lets try setting something in the book to something else
     @Test
     public void addressbookcontroller_set_test(){
         testController.add(person0);
@@ -66,6 +69,8 @@ public class AddressBookControllerIT {
         verify(addressBook0).set(1, person1);
     }
 
+    //changed a stub to behave a bit differently
+    //add a person then remove a person.
     @Test
     public void addressbookcontroller_remove_test(){
         testController.add(person0);
@@ -76,6 +81,7 @@ public class AddressBookControllerIT {
         verify(addressBook0).remove(0);
     }
 
+    //add a person then get them.
     @Test
     public void addressbookcontroller_get_test(){
         testController.add(person0);
@@ -83,6 +89,9 @@ public class AddressBookControllerIT {
         verify(addressBook0).get(0);
     }
 
+    //add some people
+    //change the stub
+    //clear the book
     @Test
     public void addressbookcontroller_clear_test(){
         testController.add(person0);
@@ -94,16 +103,23 @@ public class AddressBookControllerIT {
         verify(addressBook0).get(0);
     }
 
+    //open a file that doesnt exist.
+    //it breaks
     @Test
     public void addressbookcontroller_open_test() throws FileNotFoundException, SQLException {
         assertThrows(FileNotFoundException.class, ()-> testController.open(file0));
     }
 
+    //save a file that doesnt exist
+    //it breaks
     @Test
     public void addressbookcontroller_save_test() throws SQLException{
         assertThrows(NullPointerException.class, () -> testController.save(file0));
     }
 
+    //get the model
+    //it works
+    //not really sure what the point is here
     @Test
     public void addressbookcontroller_getModel_test() {
         AddressBook addressBook;

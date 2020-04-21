@@ -19,7 +19,7 @@ class PersonTest {
     @BeforeEach
     void setUp() {
         TestPersonFullInfo = new Person("F", "L", "A", "C", "S",
-                "Z", "P");
+                "1", "2");
     }
 
     //After each test run this empty method
@@ -132,7 +132,7 @@ class PersonTest {
     //Testing if a person with the zip code Z will return Z.
     @Test
     public void getZip_personExists_returnsZip() {
-        assertEquals("Z", TestPersonFullInfo.getZip());
+        assertEquals("1", TestPersonFullInfo.getZip());
     }
 
     //Testing if a person not initialized will throw an exception if the zip is requested.
@@ -144,7 +144,7 @@ class PersonTest {
     //Testing if a person with the phone number P will return P.
     @Test
     public void getPhone_personExists_returnsPhone() {
-        assertEquals("P", TestPersonFullInfo.getPhone());
+        assertEquals("2", TestPersonFullInfo.getPhone());
     }
 
     //Testing if a person not initialized will throw an exception if the phone number is requested.
@@ -175,8 +175,8 @@ class PersonTest {
         assertTrue(TestPersonFullInfo.containsString("A"));
         assertTrue(TestPersonFullInfo.containsString("C"));
         assertTrue(TestPersonFullInfo.containsString("S"));
-        assertTrue(TestPersonFullInfo.containsString("Z"));
-        assertTrue(TestPersonFullInfo.containsString("P"));
+        assertTrue(TestPersonFullInfo.containsString("1"));
+        assertTrue(TestPersonFullInfo.containsString("2"));
         assertFalse(TestPersonFullInfo.containsString("Y"));
 
     }
@@ -196,9 +196,9 @@ class PersonTest {
         if (field == 4)
             assertEquals("S", TestPersonFullInfo.getField(field));
         if (field == 5)
-            assertEquals("Z", TestPersonFullInfo.getField(field));
+            assertEquals("1", TestPersonFullInfo.getField(field));
         if (field == 6)
-            assertEquals("P", TestPersonFullInfo.getField(field));
+            assertEquals("2", TestPersonFullInfo.getField(field));
     }
 
     //tests what happens if the field requested is not within the range of valid fields.
