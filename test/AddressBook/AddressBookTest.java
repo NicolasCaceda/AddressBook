@@ -38,12 +38,12 @@ class AddressBookTest {
     //Adds two people to the address book then requests all the people
     //returns an array of 2 persons
     @Test
-    void getPersons_twoPersons_returnsArray() {
-        book.add(fullPerson);
-        book.add(fullPerson);
-        Person[] array = {fullPerson, fullPerson};
-        assertArrayEquals(array , book.getPersons());
-    }
+  void getPersons_twoPersons_returnsArray() {
+    book.add(fullPerson);
+    book.add(fullPerson);
+    Person[] array = {fullPerson, fullPerson};
+    assertArrayEquals(array , book.getPersons());
+  }
 
     //Tests what happens when you add an empty person
     //Nothing happens. Not even an exception.
@@ -254,4 +254,14 @@ class AddressBookTest {
     void getColumnName_notInit_throwsException() {
         assertThrows(NullPointerException.class,() -> brokenBook.getColumnName(6));
     }
+
+    //adds 19 persons to the address book
+    //adds 1 more to make 20 to ensure the book can hold at least 20 persons
+    @Test
+    void addXAmountOfPersons() {
+      for (int i = 0; i < 19; i++) {
+       book.add(fullPerson);
+      }
+      assertDoesNotThrow(() -> book.add(fullPerson));
+  }
 }
